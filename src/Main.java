@@ -16,5 +16,12 @@ public class Main {
         System.out.println(gradeManager.removeStudent("riya"));
         System.out.println(gradeManager.removeStudent("riya"));
         System.out.println(gradeManager.findByName("riya"));
+
+        gradeManager.addStudent( new Student( "riya" , new ArrayList<>(List.of(80.0,90.0) ) ) );
+        gradeManager.addStudent( new Student( "aman" , new ArrayList<>(List.of(60.0,70.0) ) ) );
+        gradeManager.addStudent( new Student( "kabir" , new ArrayList<>(List.of(95.0,100.0) ) ) );
+        System.out.println("class avg is " + gradeManager.getClassAvg());
+        System.out.println("class topper is " + gradeManager.getTopper().getName());
+
     }
 }

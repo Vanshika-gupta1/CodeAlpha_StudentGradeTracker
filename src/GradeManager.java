@@ -27,4 +27,22 @@ public class GradeManager {
 //        } return false;
     }
 
+    public double getClassAvg(){
+        if(students.isEmpty()) return 0;
+        double sum = 0;
+        for(Student s : students){
+            sum += s.getAverage();
+        }
+        return sum / students.size();
+    }
+
+    public Student getTopper(){
+        if(students.isEmpty()) return null;
+        Student best = students.getFirst();
+        for(Student s : students){
+            if(s.getAverage() > best.getAverage())
+                best = s;
+        }
+        return best;
+    }
 }
