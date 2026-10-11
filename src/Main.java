@@ -23,5 +23,7 @@ public class Main {
         System.out.println("class avg is " + gradeManager.getClassAvg());
         System.out.println("class topper is " + gradeManager.getTopper().getName());
 
+        System.out.println("lowest scorer is " + gradeManager.getLowestScorer().getName());
+        gradeManager.printReport();
     }
 }
