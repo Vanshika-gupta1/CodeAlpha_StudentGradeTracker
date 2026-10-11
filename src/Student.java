@@ -41,4 +41,8 @@ public class Student {
             } return lowest;
         }
     }
+    @Override
+    public String toString(){
+        return "Name is " + name + " average marks is " + getAverage();
+    }
 }
