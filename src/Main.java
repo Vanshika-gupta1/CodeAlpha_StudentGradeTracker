@@ -21,16 +21,15 @@ public class Main {
             String name = sc.nextLine().trim();
             if (name.isBlank()) {
                 System.out.println("Name cannot be empty");
-            } else {
-                if (name.length() > 15) {
-                    System.out.println("Name must be 15 characters or fewer.");
-                }
-                else if(g.findByName(name) != null){
-                    System.out.println("Student already exists, don't add a duplicate name,use other name");
-                }
-                else {
-                    return name;
-                }
+            }
+            else if (name.length() > 15) {
+                System.out.println("Name must be 15 characters or fewer.");
+            }
+            else if(g.findByName(name) != null){
+                System.out.println("Student already exists, don't add a duplicate name,use other name");
+            }
+            else {
+                return name;
             }
         }
     }
@@ -67,11 +66,11 @@ public class Main {
 
         System.out.println("************* Welcome *************\n");
 
-        do{
-            noOfSub = readInt(sc , "Enter number of subjects : ");
-            if(noOfSub < 1 || noOfSub > 20) System.out.println("Number of subject must be between 1 and 20");
-            else break;
-        } while(true);
+        while(true){
+            noOfSub = readInt(sc, "Enter number of subjects : ");
+            if (noOfSub >= 1 && noOfSub <= 20) break;
+            System.out.println("Number of subjects must be between 1 and 20.");
+        }
         System.out.println();
 
         while(running){
@@ -95,27 +94,55 @@ public class Main {
                     System.out.println("Added student " + name + " successfully.");
                     break;
                 }
-                case 2:
-                    System.out.println("View report");
+                case 2: {
+                    System.out.println("Student report");
+                    gradeManager.printReport();
                     break;
-                case 3:
-                    System.out.println("Search student");
+                }
+                case 3: {
+                    System.out.print("Enter student name to search : ");
+                    String name = sc.nextLine().trim();
+                    Student s = gradeManager.findByName(name);
+                    if(s == null) {
+                        System.out.println("Student with name " + name + " is not present in list");
+                    } else {
+                        System.out.println("Student with name " + name + " is present in list");
+                        System.out.println(s);
+                    }
                     break;
-                case 4 :
-                    System.out.println("Delete student");
+                }
+                case 4 : {
+                    System.out.print("Enter student name to delete : ");
+                    String name = sc.nextLine().trim();
+                    boolean studentPresent = gradeManager.removeStudent(name);
+                    if(studentPresent) {
+                        System.out.println("Removed student " + name + " from list.");
+                    } else{
+                        System.out.println("Student with name " + name + " is not present in list");
+                    }
                     break;
-                case 5 :
+                }
+                case 5 : {
                     System.out.println("Show topper and lowest scorer");
+                    Student s = gradeManager.getTopper();
+                    if(s == null) {
+                        System.out.println("No students yet");
+                    } else {
+                        System.out.println("Topper : " + s);
+                        System.out.println("Lowest scorer : " + gradeManager.getLowestScorer());
+                    }
                     break;
-                case 6 :
+                }
+                case 6 : {
                     System.out.println("Exit");
                     running = false;
                     break;
+                }
                 default:
                     System.out.println("Invalid choice try again");
             }
         }
         System.out.println("\nThank You !");
+        sc.close();
     }
-
 }

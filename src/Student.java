@@ -43,6 +43,7 @@ public class Student {
     }
     @Override
     public String toString(){
-        return "Name is " + name + " average marks is " + getAverage();
+        return String.format("%s (avg: %.2f, highest: %.2f, lowest: %.2f)",
+                name, getAverage(), getHighest(), getLowest());
     }
 }
