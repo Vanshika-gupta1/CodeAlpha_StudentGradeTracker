@@ -22,6 +22,9 @@ public class Main {
             if (name.isBlank()) {
                 System.out.println("Name cannot be empty");
             }
+            else if (name.contains(",")) {
+                System.out.println("Name cannot contain commas.");
+            }
             else if (name.length() > 15) {
                 System.out.println("Name must be 15 characters or fewer.");
             }
@@ -59,6 +62,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+        final String fileName = "students.txt";
+
         GradeManager gradeManager = new GradeManager();
         Scanner sc = new Scanner(System.in);
         boolean running = true;
@@ -66,10 +71,16 @@ public class Main {
 
         System.out.println("************* Welcome *************\n");
 
-        while(true){
-            noOfSub = readInt(sc, "Enter number of subjects : ");
-            if (noOfSub >= 1 && noOfSub <= 20) break;
-            System.out.println("Number of subjects must be between 1 and 20.");
+        noOfSub = gradeManager.loadFromFile(fileName);
+        if(noOfSub == -1){
+            while(true){
+                noOfSub = readInt(sc, "Enter number of subjects : ");
+                if (noOfSub >= 1 && noOfSub <= 20) break;
+                System.out.println("Number of subjects must be between 1 and 20.");
+            }
+        } else {
+            System.out.println("Loaded data from file");
+            System.out.println("no of subject = "+noOfSub);
         }
         System.out.println();
 
@@ -134,8 +145,11 @@ public class Main {
                     break;
                 }
                 case 6 : {
-                    System.out.println("Exit");
-                    running = false;
+                    if(gradeManager.saveToFile(fileName,noOfSub)) {
+                        System.out.println("data saved");
+                        running = false;
+                    }
+                    else System.out.println("Save failed. Your data is still in memory. Fix the problem and choose 6 again.");
                     break;
                 }
                 default:

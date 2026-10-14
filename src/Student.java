@@ -46,4 +46,24 @@ public class Student {
         return String.format("%s (avg: %.2f, highest: %.2f, lowest: %.2f)",
                 name, getAverage(), getHighest(), getLowest());
     }
+
+    public String toFileLine(){
+        StringBuilder sb = new StringBuilder(name);
+        for(Double m : marks){
+            sb.append(",");
+            sb.append(m);
+        }
+        return sb.toString();
+    }
+
+    public static Student fromFileLine(String line){
+        String[] parts = line.split(",");
+        String name = parts[0];
+        ArrayList<Double> marks = new ArrayList<>();
+        for(int i=1;i< parts.length;i++){
+            double checkmark = Double.parseDouble(parts[i].trim());
+            marks.add(checkmark);
+        }
+        return new Student(name,marks);
+    }
 }
